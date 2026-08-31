@@ -1,0 +1,58 @@
+# PRECISE Scheduler — configuration template
+# Copy to ~/.config/precise/config.toml (or $XDG_CONFIG_HOME/precise/config.toml)
+# and fill in the values for your installation.
+
+[paths]
+# Absolute path to the precise_schedules git repository clone on this server.
+# targets.toml and activity.csv are expected at the root of this directory.
+schedules_repo = "path-to-schedules-git-repo"
+
+[google]
+# Spreadsheet ID (the long string in the Sheets URL).
+# The spreadsheet must be publicly readable ("Anyone with the link can view").
+# No credentials file is needed.
+spreadsheet_id = "...."
+
+[slack]
+# Slack Bot Token (xoxb-...).
+bot_token = "xoxb-..."
+
+# Channel ID (not name) for the scheduling channel (C...).
+channel_id = "...."
+
+# Signing secret used to verify Slack interactive payloads.
+signing_secret = "your-signing-secret-here"
+
+# Port the HTTP endpoint listens on for Slack interactive payloads.
+# Must be publicly reachable by Slack (configure reverse proxy / tunnel if needed).
+webhook_port = 8765
+
+# NOTE: any Slack user who can see the channel may confirm or override proposals.
+# No authorised_users list is required.
+
+
+[mattermost]
+# Incoming webhook URL for the antenna station Mattermost channel.
+webhook_url = "https://mattermost.example.com/hooks/your-hook-id"
+
+[antenna_server]
+# SSH connection details for vlbeer.
+host = "vlbeer.ira.inaf.it"
+user = "vlbeer"
+# Absolute path to the SSH private key to use (must be accepted by vlbeer).
+ssh_key = "/home/user/.ssh/id_ed25519_vlbeer"
+# Base directory on vlbeer under which per-month subdirectories are created.
+base_path = "vlbi_arch"
+
+[daemon]
+# How often (in hours) the daemon polls the Google Sheets calendar.
+poll_interval_hours = 6
+
+# How many days ahead to look for the next observation window.
+lookahead_days = 10
+
+[debug]
+# Set to true to enable debug mode: no data is sent to the antenna server;
+# all antenna/upload interactions are printed to the terminal instead.
+# Useful for verifying the full pipeline without side effects.
+enabled = false

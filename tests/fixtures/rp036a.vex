@@ -1,0 +1,95 @@
+VEX_rev = 1.5;
+*
+* Synthetic VEX file for PRECISE Scheduler unit tests.
+* Project: RP036A
+*
+$GLOBAL;
+     ref $EXPER = rp036a;
+*
+$EXPER;
+def rp036a;
+     exper_name = rp036a;
+     exper_description = "PRECISE FRB monitoring test schedule";
+     PI_name = "Test PI";
+     PI_email = test@example.com;
+enddef;
+*
+$SOURCE;
+*
+def FRB20201124A;
+     source_name = FRB20201124A;
+     ra = 05h08m03.5s;
+     dec = 26d03'38.50";
+     ref_coord_frame = J2000;
+enddef;
+*
+def J1234+5678;
+     source_name = J1234+5678;
+     ra = 12h34m00.0s;
+     dec = 56d78'00.00";
+     ref_coord_frame = J2000;
+enddef;
+*
+$MODE;
+def EVN_512_8_2;
+     ref $FREQ = EVN_512;
+     ref $BBC = EVN_8ch;
+     ref $IF = EVN_IF;
+enddef;
+*
+$FREQ;
+def EVN_512;
+     sample_rate = 512 Ms/sec;
+     bits_per_sample = 2;
+enddef;
+*
+$BBC;
+def EVN_8ch;
+enddef;
+*
+$IF;
+def EVN_IF;
+enddef;
+*
+$ANTENNA;
+def Ef;
+     antenna_name = Ef;
+     axis_type = az : el;
+     axis_offset = 0.013 m;
+enddef;
+*
+def Wb;
+     antenna_name = Wb;
+     axis_type = az : el;
+     axis_offset = 0.000 m;
+enddef;
+*
+$SCHED;
+*
+* Scan 1 — FRB20201124A, 300 s
+scan No0001;
+     start = 2024y200d10h00m00s;
+     mode = EVN_512_8_2;
+     source = FRB20201124A;
+     station = Ef : 0 sec : 300 sec : 0.000 GB : &ccw : &n : 1;
+     station = Wb : 0 sec : 300 sec : 0.000 GB : &ccw : &n : 1;
+endscan;
+*
+* Scan 2 — J1234+5678 (calibrator), 120 s
+scan No0002;
+     start = 2024y200d10h05m30s;
+     mode = EVN_512_8_2;
+     source = J1234+5678;
+     station = Ef : 0 sec : 120 sec : 0.000 GB : &ccw : &n : 1;
+     station = Wb : 0 sec : 120 sec : 0.000 GB : &ccw : &n : 1;
+endscan;
+*
+* Scan 3 — FRB20201124A, 600 s
+scan No0003;
+     start = 2024y200d10h08m00s;
+     mode = EVN_512_8_2;
+     source = FRB20201124A;
+     station = Ef : 0 sec : 600 sec : 0.000 GB : &ccw : &n : 1;
+     station = Wb : 0 sec : 600 sec : 0.000 GB : &ccw : &n : 1;
+endscan;
+*
